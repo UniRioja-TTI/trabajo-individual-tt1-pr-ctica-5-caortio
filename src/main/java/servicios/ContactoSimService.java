@@ -74,7 +74,6 @@ public class ContactoSimService implements InterfazContactoSim {
             solicitud.setNombreEntidades(nombres);
             solicitud.setCantidadesIniciales(cantidades);
 
-            // *** AJUSTA ESTE NOMBRE DE MÉTODO si difiere en tu SolicitudApi.java ***
             SolicitudResponse response = solicitudApi.solicitudSolicitarPost(
                 NOMBRE_USUARIO, solicitud
             );
@@ -97,7 +96,6 @@ public class ContactoSimService implements InterfazContactoSim {
     @Override
     public DatosSimulation descargarDatos(int ticket) {
         try {
-            // *** AJUSTA ESTE NOMBRE DE MÉTODO si difiere en tu ResultadosApi.java ***
             ResultsResponse response = resultadosApi.resultadosPost(
                 NOMBRE_USUARIO, ticket
             );
@@ -107,6 +105,7 @@ public class ContactoSimService implements InterfazContactoSim {
                     response != null ? response.getErrorMessage() : "respuesta nula");
                 return null;
             }
+            logger.info("Datos crudos recibidos: {}", response.getData());
 
             return parsearDatos(response.getData());
 
@@ -119,34 +118,34 @@ public class ContactoSimService implements InterfazContactoSim {
     private DatosSimulation parsearDatos(String data) {
         DatosSimulation ds = new DatosSimulation();
         Map<Integer, List<Punto>> puntos = new HashMap<>();
-
+    
         String[] lineas = data.split("\n");
-
+    
         // Primera línea: ancho del tablero
         ds.setAnchoTablero(Integer.parseInt(lineas[0].trim()));
-
+    
         int maxTiempo = 0;
-
-        // Resto de líneas: tiempo,x,y,color
+    
+        // Resto de líneas: tiempo,y,x,color
         for (int i = 1; i < lineas.length; i++) {
             String linea = lineas[i].trim();
             if (linea.isEmpty()) continue;
-
+    
             String[] partes = linea.split(",");
-            int tiempo = Integer.parseInt(partes[0]);
-            int x      = Integer.parseInt(partes[1]);
-            int y      = Integer.parseInt(partes[2]);
-            String color = partes[3];
-
+            int tiempo    = Integer.parseInt(partes[0]);
+            int y         = Integer.parseInt(partes[1]); // primero Y
+            int x         = Integer.parseInt(partes[2]); // luego X
+            String color  = partes[3].trim();
+    
             Punto p = new Punto();
             p.setX(x);
             p.setY(y);
             p.setColor(color);
-
+    
             puntos.computeIfAbsent(tiempo, k -> new ArrayList<>()).add(p);
             if (tiempo > maxTiempo) maxTiempo = tiempo;
         }
-
+    
         ds.setMaxSegundos(maxTiempo + 1);
         ds.setPuntos(puntos);
         return ds;
