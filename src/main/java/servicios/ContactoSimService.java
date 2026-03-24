@@ -56,10 +56,9 @@ public class ContactoSimService implements InterfazContactoSim{
 		return entidadesDisponibles;
 	}
 
-	@Override
-	public boolean isValidEntityId() {
-		logger.warn("Implementación incompleta");
+    @Override
+    public boolean isValidEntityId(int id) {
+        logger.warn("Implementación incompleta");
         return true;	
     }
-
 }
