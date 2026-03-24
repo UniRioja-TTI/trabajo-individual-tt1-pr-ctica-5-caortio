@@ -11,13 +11,12 @@
  */
 
 
-package org.openapitools.client;
-
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
+package com.tt1.trabajo.utilidades;
 
 import java.io.IOException;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import okio.Buffer;
 import okio.BufferedSink;
 import okio.ForwardingSink;

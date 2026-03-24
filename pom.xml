@@ -84,7 +84,6 @@
 			<artifactId>gson-fire</artifactId>
 			<version>1.9.0</version>
 		</dependency>
-
 		<!-- javax.annotation -->
 		<dependency>
 			<groupId>javax.annotation</groupId>

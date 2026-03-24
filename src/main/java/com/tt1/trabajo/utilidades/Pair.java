@@ -11,7 +11,7 @@
  */
 
 
-package org.openapitools.client;
+package com.tt1.trabajo.utilidades;
 
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2026-03-24T10:17:48.955642600+01:00[Europe/Madrid]", comments = "Generator version: 7.21.0")
 public class Pair {
