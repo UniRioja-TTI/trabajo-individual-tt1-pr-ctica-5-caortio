@@ -17,6 +17,7 @@ import com.tt1.trabajo.utilidades.model.ResultsResponse;
 import com.tt1.trabajo.utilidades.model.Solicitud;
 import com.tt1.trabajo.utilidades.model.SolicitudResponse;
 
+import org.springframework.beans.factory.annotation.Value;
 import interfaces.InterfazContactoSim;
 import modelo.DatosSimulation;
 import modelo.DatosSolicitud;
@@ -43,9 +44,9 @@ public class ContactoSimService implements InterfazContactoSim {
         new Entidad(8, "O2", "España")
     );
 
-    public ContactoSimService() {
+    public ContactoSimService(@Value("${servicio.url}") String servicioUrl) {
         ApiClient apiClient = new ApiClient();
-        apiClient.setBasePath("http://localhost:8080");
+        apiClient.setBasePath(servicioUrl);
         this.solicitudApi = new SolicitudApi(apiClient);
         this.resultadosApi = new ResultadosApi(apiClient);
     }
